@@ -1,0 +1,2 @@
+Flask-API==1.0
+peewee==3.6.4
