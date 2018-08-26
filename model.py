@@ -1,6 +1,27 @@
+import os
 import peewee
 
-db = peewee.SqliteDatabase("notes.db")
+db_proxy = peewee.Proxy()
+
+
+# Heroku config
+if "HEROKU" in os.environ:
+    import urllib.parse as urlparse
+    import psycopg2
+
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse.urlparse(os.environ["DATABASE_URL"])
+    db = peewee.PostgresqlDatabase(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port,
+    )
+    db_proxy.initialize(db)
+else:
+    db = peewee.SqliteDatabase("notes.db")
+    db_proxy.initialize(db)
 
 
 class Note(peewee.Model):

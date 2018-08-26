@@ -48,5 +48,5 @@ def scales(shape, scale):
     }
 
 
-if __name__ == "__main__":
-    app.run(debug=DEBUG)
+# if __name__ == "__main__":
+#     app.run(debug=DEBUG)
