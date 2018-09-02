@@ -1,4 +1,4 @@
-from model import *
+import model
 
 
 def main():
@@ -72,7 +72,7 @@ def main():
     for index_1, color in enumerate(COLORS):
         for index_2, shape in enumerate(SHAPES):
             if counter <= 127:
-                note = Note(
+                model.Note.create(
                     color=color,
                     shape=shape,
                     midi_val=counter,
@@ -80,11 +80,10 @@ def main():
                     hex=HEX[index_1],
                     svg=SVG_PATHS[index_2],
                 )
-                db.session.add(note)
-                db.session.commit()
 
             counter += 1
 
 
 if __name__ == "__main__":
+    model.initialize_db()
     main()

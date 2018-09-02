@@ -1,8 +1,9 @@
 from scales import Scale
+from model import Note
 
 
 def test_scales():
-    assert Scale.get_scale("circle", "major") == [
+    assert Scale.get_scale(Note, "circle", "major") == [
         "circle",
         "star",
         "triangle",
@@ -12,7 +13,7 @@ def test_scales():
         "sun",
     ]
 
-    assert Scale.get_scale("key", "melodic_minor") == [
+    assert Scale.get_scale(Note, "key", "melodic_minor") == [
         "key",
         "crown",
         "cube",

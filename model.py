@@ -1,25 +1,22 @@
-import peewee
+from flask_api import FlaskAPI
+from flask_sqlalchemy import SQLAlchemy
 
-db = peewee.SqliteDatabase("notes.db")
+DEBUG = True
 
-
-class Note(peewee.Model):
-    id = peewee.PrimaryKeyField()
-    color = peewee.CharField()
-    shape = peewee.CharField()
-    midi_val = peewee.IntegerField()
-    common_notation = peewee.CharField()
-    hex = peewee.CharField()
-    svg = peewee.CharField()
-
-    class Meta:
-        database = db
-
-    def __str__(self):
-        return f"{self.midi_val} {self.color} {self.shape}"
+app = FlaskAPI(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/notes"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy(app)
 
 
-def initialize_db():
-    db.connect()
-    db.create_tables([Note], safe=True)
-    db.close()
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    color = db.Column(db.String, nullable=False)
+    shape = db.Column(db.String, nullable=False)
+    midi_val = db.Column(db.Integer, nullable=False)
+    common_notation = db.Column(db.String, nullable=False)
+    hex = db.Column(db.String, nullable=False)
+    svg = db.Column(db.String, nullable=False)
+
+    def __repr__(self):
+        return f"note number: {self.midi_val}, note color: {self.color}, note shape: {self.shape}"

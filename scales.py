@@ -1,6 +1,3 @@
-from model import Note
-
-
 class Scale:
     """
     Scale contains the different number of whole steps & half steps in each
@@ -29,13 +26,14 @@ class Scale:
     }
 
     @classmethod
-    def get_scale(cls, shape, key=""):
-        get_shape = Note.get(Note.shape == shape).midi_val
-        base_note = get_shape
+    def get_scale(cls, model, shape, key=""):
+        base_note = model.query.filter_by(shape=shape).first().midi_val
         scale_container = []
+        note_offset = 1
 
         for scale in cls.scales[key.upper()]:
-            scale_container.append(Note.get(Note.midi_val == base_note).shape)
+            scale_container.append(model.query.get(base_note + note_offset).shape)
             base_note += scale
 
         return scale_container
+

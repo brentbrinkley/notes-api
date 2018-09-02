@@ -1,9 +1,10 @@
-from flask_api import FlaskAPI
-import model
+from model import *
+
 from scales import Scale
 
-DEBUG = True
-app = FlaskAPI(__name__)
+####################################################
+# Index
+####################################################
 
 
 @app.route("/")
@@ -18,17 +19,24 @@ def index():
             "hex": note.hex,
             "common": note.common_notation,
         }
-        for note in model.Note.select()
+        for note in Note.query.all()
     ]
 
     return {"notes": notes}
 
 
+####################################################
+# Scales
+####################################################
+
+
 @app.route("/scales-<string:shape>-<string:scale>")
 def scales(shape, scale):
-    notes = Scale.get_scale(shape, scale)
+    """Scaled version of our notes database that returns a note databank sorted by scale"""
 
-    scaled_notes = [note for note in model.Note.select() if note.shape in notes]
+    notes = Scale.get_scale(Note, shape, scale)
+
+    scaled_notes = [note for note in Note.query.all() if note.shape in notes]
 
     scaled_db = [
         {
@@ -41,12 +49,5 @@ def scales(shape, scale):
         for note in scaled_notes
     ]
 
-    return {
-        "title": f"This is the {shape} {scale} scale",
-        "notes": scaled_db,
-        "count": len(scaled_db),
-    }
+    return {"notes": scaled_db, "count": len(scaled_db)}
 
-
-if __name__ == "__main__":
-    app.run(debug=DEBUG)
