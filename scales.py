@@ -25,13 +25,20 @@ class Scale:
         "HALF_HOLE_DIM": (1, 2, 1, 2, 1, 2, 1, 2),
     }
 
+    # (Notes, shape, key) -> [Shapes]
     @classmethod
     def get_scale(cls, model, shape, key=""):
+
+        # filter model by shape, get the first one return its midi value
         base_note = model.query.filter_by(shape=shape).first().midi_val
+
         scale_container = []
+
         note_offset = 1
 
+        # for each scale in scales append container with a shape string based on note query
         for scale in cls.scales[key.upper()]:
+
             scale_container.append(model.query.get(base_note + note_offset).shape)
             base_note += scale
 

@@ -1,5 +1,6 @@
 from model import *
 
+
 from scales import Scale
 
 ####################################################
@@ -16,10 +17,11 @@ def index():
             "midi": note.midi_val,
             "color": note.color,
             "shape": note.shape,
-            "hex": note.hex,
+            "svg": note.svg,
             "common": note.common_notation,
+            "filter": note.note_filtered,
         }
-        for note in Note.query.all()
+        for note in Note.query.order_by(Note.id).all()
     ]
 
     return {"notes": notes}
@@ -43,8 +45,9 @@ def scales(shape, scale):
             "midi": note.midi_val,
             "color": note.color,
             "shape": note.shape,
-            "hex": note.hex,
+            "svg": note.svg,
             "common": note.common_notation,
+            "filter": note.note_filtered,
         }
         for note in scaled_notes
     ]

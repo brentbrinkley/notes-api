@@ -6,9 +6,12 @@ name = "pypi"
 [packages]
 flask-api = "==1.0"
 gunicorn = "==19.9.0"
-flask-sqlalchemy = "*"
 flask-migrate = "*"
 "psycopg2" = "*"
+sqlalchemy = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
@@ -16,4 +19,3 @@ python_version = "3.7"
 [dev-packages]
 ipython = "*"
 bpython = "*"
-pytest = "*"
