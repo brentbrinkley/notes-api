@@ -3,8 +3,10 @@ import peewee
 
 db_proxy = peewee.Proxy()
 
+# --------------------------------------------
+# Heroku config provided by heroku
+# --------------------------------------------
 
-# Heroku config
 if "HEROKU" in os.environ:
     import urllib.parse as urlparse
     import psycopg2
@@ -23,7 +25,9 @@ else:
     db = peewee.SqliteDatabase("notes.db")
     db_proxy.initialize(db)
 
-
+# --------------------------------------------
+# Note Model
+# --------------------------------------------
 class Note(peewee.Model):
     id = peewee.PrimaryKeyField()
     color = peewee.CharField()

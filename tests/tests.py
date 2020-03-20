@@ -1,4 +1,4 @@
-from scales import Scale
+from helpers.scales import Scale
 
 
 def test_scales():

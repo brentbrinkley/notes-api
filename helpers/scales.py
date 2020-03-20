@@ -1,4 +1,4 @@
-from model import Note
+from models.note_model import Note
 
 
 class Scale:

@@ -7,6 +7,8 @@ name = "pypi"
 
 [packages]
 flask-api = "*"
+peewee = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"

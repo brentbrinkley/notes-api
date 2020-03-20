@@ -5,8 +5,8 @@ def main():
     """Builds our database with the proper values"""
 
     COLORS = [
+        "gold",
         "black",
-        "brown",
         "red",
         "orange",
         "yellow",
