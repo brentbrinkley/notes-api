@@ -1,4 +1,4 @@
-import model
+import models.note_model as model
 
 
 def main():
